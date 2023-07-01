@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movie Recommendation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Auto Complete -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+  <script type="text/javascript">
+    var films = {{ suggestions| tojson}};
+  </script>
+
+</head>
+
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif;">
+
+  <div class="ml-container" style="display: block;">
+    <div class="ml-container-content p-4">
+
+      <!-- Title -->
+      <div class="text-center">
+        <h1 style="color:slateblue;">Movie Recommendation</h1>
+      </div>
+
+      <!-- Search bar -->
+      <div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
+        <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off"
+          placeholder="Enter the Movie Name"
+          style="background-color: #ffffff;border-color:#ffffff;width: 60%;color: #181818" required="required" />
+        <br>
+      </div>
+
+      <!-- Search bar button -->
+      <div class="form-group" style="text-align: center;">
+        <button class="btn btn-primary btn-block movie-button"
+          style="background-color: #e50914;text-align: center;border-color: #e50914;width:120px;"
+          disabled="true">Enter</button><br><br>
+      </div>
+
+      <div class="text-light text-center" id="scroll-down">
+        Scroll down <i class="fa fa-light fa-angle-down" style="size:100px"></i>
+      </div>
+
+      <div class="btn btn-danger" id="logout" onclick="handlelogout()">Logout</div>
+    </div>
+  </div>
+
+  <div id="loader" class="text-center">
+  </div>
+
+  <div class="fail">
+    <div class="text-center">
+      <h3>Sorry! The movie you requested is not in our database :(<br>
+        Try with other movies!</h3>
+    </div>
+  </div>
+
+  <div class="results mt-4">
+    <div class="text-center">
+      <h2 id="name" class="text-uppercase"></h2>
+    </div>
+  </div>
+
+
+  <h3 id="top-liked" class="p-3">Your top liked movies</h3>
+  <div class="row row-cols-3 p-3">
+    <!-- <h2 class="text-danger" id="top-recommended">Recommendations</h2> -->
+    {% if user_top_liked %}
+    {% for i in user_top_liked %}
+    <div class="col mb-4">
+      <div class="card mx-auto d-block" style="width: 18rem;">
+        <img class="card-img-top" src="{{i['poster']}}" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{i.title}}</p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+  </div>
+
+
+
+
+  <h3 id="top-recommended" class="p-3">Top Picks for you</h3>
+  <div class="row row-cols-3 p-3">
+    <!-- <h2 class="text-danger" id="top-recommended">Recommendations</h2> -->
+    {% if user_recommendations %}
+    {% for i in user_recommendations %}
+    <div class="col mb-4">
+      <div class="card mx-auto d-block" style="width: 18rem;">
+        <img class="card-img-top" src="{{i['poster']}}" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{i.title}}</p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+  </div>
+
+
+  <div class="user-specific">
+
+  </div>
+
+  <script>
+    const handlelogout = () => {
+      console.log("logout")
+      window.location.href = 'http://127.0.0.1:5000/home';
+      return;
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("image2.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#login h1 {
+  color: red;
+}
+
+img {
+  position: absolute;
+  top: -8%;
+  left: -2%;
+  width: 300px;
+  filter: invert(100%);
+}
+
+#login .demo-wrap {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.demo-content {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-family: "Poppins", sans-serif;
+  width: 30%;
+  font-size: 1vw;
+  top: 20%;
+}
+
+.form-control {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  box-sizing: none;
+  color: white;
+}
+.form-control:focus {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  box-sizing: none;
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+label {
+  color: white;
+}
